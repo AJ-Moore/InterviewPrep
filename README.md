@@ -279,7 +279,7 @@ inline T& LinkedList<T>::PeekBack()
 #### Bubble Sort 
 Bubble sort works by iterating over the elements and swapping them if the value on the left should be on the right in the case of intergers this would be if the left value is larger than the right value. After 1 iteration the right most/ last element in the list will be in the correct position, meaning with each iteration we iterate over n - 1 elements.
 
-Complexity: O(n^2), 
+Worst Case Complexity: O(n^2), 
 
 #### Diagram - Orange arrows show where a swap has occured.
 <img src="img/bubblesort.png" width=400/>
