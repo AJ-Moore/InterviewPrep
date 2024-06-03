@@ -443,23 +443,74 @@ A. This usually refers to the common libraries required as per the language spec
 ### Check for Balanced Brackets
 
 ```
-bool CheckBalanced(const char* strToCheck, int length, char open, char close)
+bool CheckBalanced(std::string strToCheck)
 {
-// Todo
+    std::stack<char> bracketStack;
+
+    const std::string openBrackets = "[{(";
+    const std::string closeBrackets = "]})";
+
+    for (int i = 0; i < strToCheck.length(); i++)
+    {
+        const char c = strToCheck[i];
+
+        size_t openIndex = openBrackets.find(c);
+        size_t closeIndex = closeBrackets.find(c);
+
+        if (openIndex == std::string::npos && 
+            closeIndex == std::string::npos)
+        {
+			continue;
+		}
+
+        if (openIndex != std::string::npos)
+        {
+            bracketStack.push(c);
+			continue;
+		}
+
+        if (closeIndex != std::string::npos)
+        {
+            if (bracketStack.empty())
+            {
+				return false;
+			}
+
+            if (bracketStack.top() != openBrackets[closeIndex])
+            {
+				return false;
+			}
+
+            bracketStack.pop();
+		}
+	}
+
+    return bracketStack.empty();
 }
 
 int main() 
 {
-    const char* myString = "((()))";
+    std::string test1 = "()";  // Simple balanced parentheses
+    std::string test2 = "({[]})";  // Nested balanced brackets
+    std::string test3 = "[(])";  // Incorrectly nested brackets
+    std::string test4 = "";  // Empty string
+    std::string test5 = "{[()]}";  // Balanced mixed brackets
+    std::string test6 = "{[(])}";  // Incorrectly nested mixed brackets
+    std::string test7 = "{[(";  // Open brackets without closing
+    std::string test8 = "{[()]}[]";  // Balanced with additional brackets
+    std::string test9 = "([{}])";  // Balanced with different sequences
+    std::string test10 = "(()(()))";  // Multiple levels of nested parentheses
 
-    if (CheckBalanced(myString, strlen(myString), '(', ')'))
-    {
-		printf("The brackets are balanced.\n");
-	}
-    else
-    {
-		printf("The brackets are not balanced.\n");
-	}
+    printf("test1: "); printf(CheckBalanced(test1) ? "Passed\n" : "Failed\n"); 
+    printf("test2: "); printf(CheckBalanced(test2) ? "Passed\n" : "Failed\n"); 
+    printf("test3: "); printf(CheckBalanced(test3) ? "Passed\n" : "Failed\n"); 
+    printf("test4: "); printf(CheckBalanced(test4) ? "Passed\n" : "Failed\n"); 
+    printf("test5: "); printf(CheckBalanced(test5) ? "Passed\n" : "Failed\n"); 
+    printf("test6: "); printf(CheckBalanced(test6) ? "Passed\n" : "Failed\n"); 
+    printf("test7: "); printf(CheckBalanced(test7) ? "Passed\n" : "Failed\n"); 
+    printf("test8: "); printf(CheckBalanced(test8) ? "Passed\n" : "Failed\n"); 
+    printf("test9: "); printf(CheckBalanced(test9) ? "Passed\n" : "Failed\n"); 
+    printf("test10: "); printf(CheckBalanced(test10) ? "Passed\n" : "Failed\n");
 }
 ```
 
