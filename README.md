@@ -16,6 +16,15 @@
 - Ring/ Circular Buffer 
 - Hash Maps
 
+### Ring/ Circular Buffer
+A ring or circular buffer is one where the data will loop back around when it reaches the end of the buffer thus creating a ring. They are used in places where there is a requirement for a fixed size buffer there's a need for a FIFO buffer where the data that is allocated first will be first to be freed, such as data streams, data queues and such. Obvious considerations are how you deal with and prevent data overflow.
+
+### Hash Maps 
+A hash map is a container that rather than being stored/ accessed using a sequential index can be accessed using a hash key, unlike a tree though it uses a hash function to work out the index of the element of the container from the hash, this leads to a much faster lookup time when compared to other containers. The time complexity of a hash map is considered to be O(1) that is it is constant time complexity and the run time is the same regardless of input size.
+
+```
+// Hash map implementation
+```
 
 ### Arrays
 
@@ -353,6 +362,9 @@ void QuickSort(int* elements, int start, int end)
 - A* Path Finding
 
 ### PCG
+#### Marching Cubes 
+#### Cellular Automata 
+#### Wave Collapse/ 
 
 ## Programming Principles 
 
@@ -362,22 +374,38 @@ void QuickSort(int* elements, int start, int end)
 - Service Locator
 
 ### SOLID Principles 
+The solid principles come up alot in computer science, they are considered 5 good principles to follow when developing software, some of the principles have been around for a while but they were grouped together or 'coined' by Robert C. Martin (unclebobmartin) author of "The Clean Coder" however uncle bob used to teach them in a different order until he recieved a letter from Michael Feathers saying if you rearrange the order of the design principles, it spells SOLID, he thought it was a good idea.
 - Single Responsibility 
 - Open/Closed 
 - Liskov Substitution 
 - Interface Segregation 
 - Dependency Inversion
 
-Single Responsibility
+#### Single Responsibility  
 "A module should be responsible to one, and only one, actor."  Martin, Robert C. (2018). Clean architecture : a craftsman's guide to software structure and design. Boston. ISBN 978-0-13-449432-6. OCLC 1003645626.
 In practicality this is the notion that a class should only have one responsibility.
 With the segragation of logic we have a seperation of concerns. By using the single responsibility preinciple code becomes more modular and easy to maintain, and although it might not improve coupling specifically as more modulirisation of logic means, more dependencies on other modules we would hope the coupling isn't as close with the seperation of concerns. And we would expect better cohesion and the management of dependencies to be easier. 
+
+#### Open/ Closed
+In the open/ closed principle the idea is software should be open for extension whilst being closed for modification. Or you should be able to add new functionality without modifying it's source code.
+
+#### Liskov Substitution
+If you replace an object of a baseclass with a derived class the program should function as normal 
+
+#### Interface Segregation 
+Code should not be forced to depend on methods it does not use. 
+
+#### Dependency Inversion 
+"when designing the interaction between a high-level module and a low-level one, the interaction should be thought of as an abstract interaction between them."
 
 ### 4 Pillars of OOP
 - Abstraction 
 - Encapsulation 
 - Inheritance 
 - Polymorphism
+
+### Abstraction 
+Abstraction can be described as the process of reducing an applications complexity through hiding the underlying implementation. A good example of this might be with class inheritance where the base class might contain much of the complex logic that is utilised by the derived class, with the derived class not implementing the logic itself.
 
 ### Programming Paradigms 
 - Imperative Programming 
@@ -403,9 +431,53 @@ With the segragation of logic we have a seperation of concerns. By using the sin
 
 ### Const correctness 
 
-### Multithreaded Programming 
+Any variable that is not required to be mutable should be made const.
 
-### Socket Programming
+
+
+- Where possible pass parameters by const ref 
+- Primitive types should be passed by value, this is typically more efficient, passing by ref for these types can impede compiler optimisations.
+
+- Prefer passing objects by const reference, this shows the object will not be modified by the method  
+```
+// Pass Objects by reference
+void DoSomethingWithObjects (const& MyObject a, const& MyObject b)
+```
+
+- Any "getter" functions should be marked as const, to show they don't modify the object and additionally on the previous point of passing by reference we want to ensure when an object is non mutable, passed by reference, we want to be able to access expose attributes via these methods without requiring the object to be mutable. 
+```
+// Method is const, calling object attributes cannot be modified unless marked mutable
+// Return primitive type by value
+int GetCount () const { return m_count; }
+```
+
+functions that don't 
+
+### Multithreaded Programming 
+In c++ we use the `<thread>` library 
+
+Starting Threads
+
+Locking
+
+Mutex 
+
+Atomic Variables
+
+Detach/ Join threads
+
+Defering tasks to other threads
+
+### Network Game Programming
+
+#### Sockets 
+Sockets in c++ can be used to communicate between two applications over a network
+
+Creating a TCP socket 
+
+#### NAT Punchthrough 
+
+#### TCP/ UDP
 
 ### Interview Questions to Catch you out 
 
